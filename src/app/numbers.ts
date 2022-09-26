@@ -101,5 +101,5 @@ export const danishNumbers: DanishNumber[] = [
   { number: 97, name: 'syvoghalvfems' },
   { number: 98, name: 'otteoghalvfems' },
   { number: 99, name: 'nioghalvfems' },
-  { number: 0, name: 'et hundred' },
+  { number: 100, name: 'et hundred' },
 ];
