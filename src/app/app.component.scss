@@ -1,0 +1,89 @@
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.title {
+  text-align: center;
+  font-size: 48px;
+  font-family: "ConcertOne";
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  & > div {
+    flex: 40%;
+  }
+}
+
+.number-button {
+  width: 100%;
+  padding: 32px;
+  font-family: "RobotoMonoBold";
+  font-size: 24px;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.correct {
+  background-color: greenyellow;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
+}
+
+.incorrect {
+  background-color: rgb(255, 134, 134);
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+}
+
+.button-container {
+  margin: 8px;
+}
+
+.answer {
+  text-align: center;
+  font-family: "RobotoMonoBold";
+  font-size: 32px;
+}
+
+.points {
+  width: 100%;
+  text-align: center;
+  font-family: "RobotoMonoBold";
+  font-size: 24px;
+}
+
+.help-button {
+  margin-bottom: 24px;
+  border: 0;
+  border-radius: 4px;
+  padding: 8px;
+  text-align: center;
+  font-family: "RobotoMonoBold";
+  font-size: 20px;
+
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.guess-again {
+  width: 80%;
+  text-align: center;
+  font-family: "RobotoMonoBold";
+  font-size: 24px;
+  padding: 8px;
+  border: 0;
+  border-radius: 8px;
+
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.answer-container {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

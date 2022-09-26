@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: "RobotoMonoBold";
+  src: local("RobotoMonoBold"),
+    url(./assets/fonts/roboto-mono/static/RobotoMono-Bold.ttf)
+      format("truetype");
+}
+
+@font-face {
+  font-family: "ConcertOne";
+  src: local("ConcertOne"),
+    url(./assets/fonts/concert-one/ConcertOne-Regular.ttf) format("truetype");
+}
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html,
+body {
+  height: 100%;
+  overflow-y: hidden;
+
+  background-color: rgb(255, 189, 255);
+}
