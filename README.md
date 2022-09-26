@@ -1,5 +1,16 @@
 # DanishNumberTrainer
 
+This was a project I had an idea to create.
+The numbers in Danish can be kind of hard to learn, so I decided to create this small game to try and help.
+You get a number in written form (for example, en) and you have to guess the correct answer out of 4 options.
+Upong guessing 3 of the options will turn red and 1 will turn green.
+If you got it right, you get 1 point.
+If you didnt get it right, you lose all points and start from 0 again.
+
+Have fun :)
+
+It was developed using an IPhone 12 Pro screen setting on Chrome.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
 
 ## Development server
