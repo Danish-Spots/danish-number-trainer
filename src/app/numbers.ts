@@ -2,7 +2,7 @@ import { DanishNumber } from './numbers.interface';
 
 export const danishNumbers: DanishNumber[] = [
   { number: 0, name: 'nul	' },
-  { number: 1, name: 'en' },
+  { number: 1, name: 'en (et)' },
   { number: 2, name: 'to' },
   { number: 3, name: 'tre' },
   { number: 4, name: 'fire' },
@@ -101,5 +101,26 @@ export const danishNumbers: DanishNumber[] = [
   { number: 97, name: 'syvoghalvfems' },
   { number: 98, name: 'otteoghalvfems' },
   { number: 99, name: 'nioghalvfems' },
-  { number: 100, name: 'et hundred' },
+  { number: 100, name: 'et hundrede' },
 ];
+
+export const placeNumbers: DanishNumber[] = [
+  { number: 100, name: 'hundrede', gender: 'et' },
+  { number: 1000, name: 'tusind', gender: 'et' },
+  { number: 1000000, name: 'million', gender: 'en' },
+  { number: 1000000000, name: 'milliard', gender: 'en' },
+];
+
+/**
+ * an array of indicies to be used with placeNumbers in order to build the danish string,
+ * contains -1, 0, 1, 2 for values.
+ * -1 means use the danishNumbers array for 2 digits and placement.
+ * For example '5' would be used to build femogtredive tusind tre hundrede og femogfyrre
+ */
+export const placeNumbersIndexing: any = {
+  '3': [0, -1], // 100 - 1000
+  '4': [1, 0, -1], // 1000 - 10 000
+  '5': [-1, 1, 0, -1], // this one is convoluted -> eg 54 thousand
+  '6': [0, -1, 1, 0, -1], // 100 000 - 1 000 000
+  '7': [2, 0, -1, 1, 0, -1], // 1 000 000 - 10 000 000
+};
