@@ -4,3 +4,7 @@ export interface DanishNumber {
   state?: string;
   gender?: string;
 }
+
+export interface DanishNumberDict {
+  [key: number]: DanishNumber;
+}

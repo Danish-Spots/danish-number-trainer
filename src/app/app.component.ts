@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HelpDialogComponent } from './help-dialog/help-dialog.component';
 import { danishNumbers } from './numbers';
+import { NumbersGeneratorService } from './numbers-generator.service';
 import { DanishNumber } from './numbers.interface';
 
 @Component({
@@ -17,10 +18,14 @@ export class AppComponent implements OnInit {
 
   hasGuessed = false;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private numberGenService: NumbersGeneratorService
+  ) {}
 
   ngOnInit(): void {
     console.log();
+    this.numberGenService.buildNumberString();
     this.populateSelectedNumbers();
   }
 

@@ -1,109 +1,85 @@
 import { Injectable } from '@angular/core';
 import { Answer } from './answer.interface';
-import { danishNumbers } from './numbers';
+import { danishNumberDict, danishNumbers } from './numbers';
 import { DanishNumber } from './numbers.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NumbersGeneratorService {
-  private numbersOneToNine = danishNumbers.slice(1, 9);
   constructor() {}
 
-  /**
-   * Creates an array of guesses based on a number of digits value provided.
-   * It is possible for there to be a value greater than the numberOfDigits passed,
-   * and that is because of the range aspect. For example, if you pass 2, then you will get
-   * guesses in the range of 10 to 100 inclusive on both ends.
-   * @param numberOfDigits numberOfDigits the return number guesses should be
-   */
-  getFourNumbers(numberOfDigits: number) {
-    let selectedNumbers: DanishNumber[] = [];
-    switch (numberOfDigits) {
-      case 1:
-        // range 0 - 10
-        selectedNumbers = danishNumbers.slice(0, 10);
-        break;
-      case 2:
-        // range 10 - 100
-        selectedNumbers = danishNumbers.slice(10, 100);
-        break;
-      case 3:
-        // range 100 - 1000
-        break;
-      case 4:
-        // 1000 - 10 000
-        break;
-      case 5:
-        // 10 000 - 100 000
-        break;
-      case 6:
-        // 100 000 - 1 000 000
-        break;
-      case 7:
-        // 1 000 000 - 10 000 000
-        break;
-      case -2:
-        // 0 - 100
-        break;
-      case -3:
-        // 0 - 1000
-        break;
-      case -4:
-        // phone numbers
-        // currently no plans to implement this.
-        break;
-      default:
-        break;
-    }
-    console.log(selectedNumbers);
-  }
-
-  generateNumberString(digitSize: number, num: number) {
-    const numString = num.toString();
-    let danishNumString = '';
-    // last two digit places will be taken care of using the danishNumbers array
-    for (let i = 0; i < digitSize - 1; i++) {
-      const digit = numString[i];
-      danishNumString += this.numbersOneToNine.find(
-        (d) => d.number === +digit
-      )?.name;
-    }
-  }
-
-  getPlacementName(index: number, digitSize: number) {
-    switch (digitSize) {
-      case 3:
-        break;
-
-      default:
-        break;
-    }
-  }
-
-  getCorrectAnswer(selectedNumbers: DanishNumber[]): Answer {
-    const correctAnswerIndex = this.getRandomInt(selectedNumbers.length);
-
-    const correctAnswer = selectedNumbers[correctAnswerIndex];
-    return {
-      answer: correctAnswer,
-      answerIndex: correctAnswerIndex,
+  buildNumberString() {
+    const test = 1843433;
+    console.log();
+    const splitNumbers = test.toString().split(/(?=(?:...)*$)/);
+    console.log(splitNumbers);
+    const buildArray: DanishNumber[] = [];
+    let outputNumber: DanishNumber = {
+      name: '',
+      number: 0,
     };
-  }
-
-  chooseFromArray(numberArray: DanishNumber[], numberOfChoices: number = 4) {
-    const tempIndicies: number[] = [];
-    const numbers: DanishNumber[] = [];
-
-    while (numbers.length < numberOfChoices) {
-      const tempIndex = this.getRandomInt(danishNumbers.length);
-      if (!tempIndicies.includes(tempIndex)) {
-        tempIndicies.push(tempIndex);
-        numbers.push(danishNumbers[tempIndex]);
+    let iterationCount = 100; // not really iteration count
+    if (splitNumbers) {
+      for (const numGroup of splitNumbers.reverse()) {
+        const res = this.createGroupNameString(+numGroup, iterationCount);
+        if (iterationCount !== 100) {
+          const place = danishNumberDict[iterationCount];
+          res.name += ' ' + place.name;
+          res.number = res.number * place.number;
+          iterationCount = iterationCount * 1000;
+        } else if (iterationCount === 100) {
+          iterationCount = iterationCount * 10;
+        }
+        buildArray.push(res);
       }
     }
 
-    return numbers;
+    buildArray.reverse().forEach((d) => {
+      outputNumber.name += d.name + ' ';
+      outputNumber.number += d.number;
+    });
+    console.log(outputNumber);
+  }
+
+  private createGroupNameString(
+    numGroup: number,
+    iterationCount: number
+  ): DanishNumber {
+    if (numGroup <= 99) {
+      console.log(numGroup);
+      if (iterationCount > 100 && numGroup === 1) {
+        const newNum: DanishNumber = {
+          number: 1,
+          name: danishNumberDict[iterationCount].gender ?? 'en',
+        };
+        return newNum;
+      }
+      return danishNumberDict[numGroup];
+    } else if (numGroup === 100) {
+      return {
+        name: 'et hundrede',
+        number: 100,
+      };
+    } else {
+      let hundredsName = '';
+      const tens = numGroup % 100; // will be 0 if numGroup === 200, 300, etc
+      const hundreds = (numGroup - tens) / 100; // will always be between 1 to 9
+      hundredsName = danishNumberDict[hundreds].name;
+      if (hundreds === 1) {
+        hundredsName = 'et'; //needed because it is et hundrede and not en hundrede
+      }
+      const resultNumber: DanishNumber = {
+        name:
+          hundredsName +
+          ' ' +
+          danishNumberDict[100].name +
+          ' ' +
+          danishNumberDict[tens].name,
+        number: numGroup,
+      };
+      return resultNumber;
+    }
   }
 
   /**
