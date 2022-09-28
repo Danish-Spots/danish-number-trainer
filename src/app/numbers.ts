@@ -124,3 +124,39 @@ export const placeNumbersIndexing: any = {
   '6': [0, -1, 1, 0, -1], // 100 000 - 1 000 000
   '7': [2, 0, -1, 1, 0, -1], // 1 000 000 - 10 000 000
 };
+
+export const connectorWord = 'og';
+export const digits: DanishNumber[] = [
+  { number: 0, name: 'nul	' },
+  { number: 1, name: 'en (et)' },
+  { number: 2, name: 'to' },
+  { number: 3, name: 'tre' },
+  { number: 4, name: 'fire' },
+  { number: 5, name: 'fem' },
+  { number: 6, name: 'seks' },
+  { number: 7, name: 'syv' },
+  { number: 8, name: 'otte' },
+  { number: 9, name: 'ni' },
+  { number: 10, name: 'ti' },
+  { number: 11, name: 'elleve' },
+  { number: 12, name: 'tolv' },
+  { number: 13, name: 'tretten' },
+  { number: 14, name: 'fjorten' },
+  { number: 15, name: 'femten' },
+  { number: 16, name: 'seksten' },
+  { number: 17, name: 'sytten' },
+  { number: 18, name: 'atten' },
+  { number: 19, name: 'nitten' },
+  { number: 20, name: 'tyve' },
+  { number: 30, name: 'tredive' },
+  { number: 40, name: 'fyrre' },
+  { number: 50, name: 'halvtreds' },
+  { number: 60, name: 'tres' },
+  { number: 70, name: 'halvfjerds' },
+  { number: 80, name: 'firs' },
+  { number: 90, name: 'halvfems' },
+  { number: 100, name: 'hundrede', gender: 'et' },
+  { number: 1000, name: 'tusind', gender: 'et' },
+  { number: 1000000, name: 'million', gender: 'en' },
+  { number: 1000000000, name: 'milliard', gender: 'en' },
+];
