@@ -1,20 +1,15 @@
+<router-outlet></router-outlet>
 <div class="flex-container">
   <h1 class="title">Danish Number Guessing Game</h1>
-  <span class="points">Current Points: {{ points }}</span>
-  <div class="answer-container">
-    <h2 class="answer">
-      {{ correctAnswer.name }}
-    </h2>
-    <button class="guess-again" *ngIf="hasGuessed" (click)="replay()">
-      Guess Again?
-    </button>
-  </div>
-  <div class="game-area buttons-container">
-    <div class="button-container" *ngFor="let num of selectedDanishNumbers">
-      <button class="number-button {{ num.state }}" (click)="onGuess(num)">
-        {{ num.number }}
+
+  <div class="buttons-container">
+    <div class="button-container" *ngFor="let num of numberRanges">
+      <button
+        class="number-button"
+        [routerLink]="['/play/', num.lowest, num.highest]"
+      >
+        {{ num.lowest | number: "1.0-0" }} - {{ num.highest | number: "1.0-0" }}
       </button>
     </div>
   </div>
-  <button (click)="onHelp()" class="help-button">How it works?</button>
 </div>

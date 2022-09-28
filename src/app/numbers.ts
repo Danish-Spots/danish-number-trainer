@@ -2,7 +2,7 @@ import { DanishNumber, DanishNumberDict } from './numbers.interface';
 
 export const danishNumbers: DanishNumber[] = [
   { number: 0, name: 'nul	' },
-  { number: 1, name: 'en (et)' },
+  { number: 1, name: 'en', gender: 'en (et)' },
   { number: 2, name: 'to' },
   { number: 3, name: 'tre' },
   { number: 4, name: 'fire' },

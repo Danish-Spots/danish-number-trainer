@@ -1,0 +1,30 @@
+<div class="flex-container">
+  <h1 class="title">Danish Number Guessing Game</h1>
+  <div class="game-area">
+    <span class="points">Current Points: {{ points }}</span>
+    <div class="answer-container">
+      <h2 class="answer">
+        {{ numberGenService.correctAnswer.name }}
+      </h2>
+      <button
+        class="guess-again"
+        *ngIf="numberGenService.hasGuessed"
+        (click)="replay()"
+      >
+        Guess Again?
+      </button>
+    </div>
+
+    <div class="buttons-container">
+      <div
+        class="button-container"
+        *ngFor="let num of numberGenService.selectedDanishNumbers"
+      >
+        <button class="number-button {{ num.state }}" (click)="onGuess(num)">
+          {{ num.number | number: "1.0-0" }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <button (click)="onHelp()" class="help-button">How it works?</button>
+</div>

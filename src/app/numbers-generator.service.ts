@@ -7,13 +7,44 @@ import { DanishNumber } from './numbers.interface';
   providedIn: 'root',
 })
 export class NumbersGeneratorService {
+  public hasGuessed = false;
+  public selectedDanishNumbers: DanishNumber[] = [];
+  public correctAnswerIndex: number = -1;
+  public correctAnswer!: DanishNumber;
+  public lowestNumber!: number;
+  public highestNumber!: number;
+
   constructor() {}
 
-  buildNumberString() {
-    const test = 1843433;
-    console.log();
-    const splitNumbers = test.toString().split(/(?=(?:...)*$)/);
-    console.log(splitNumbers);
+  buildGuesses() {
+    const numberOfChoices = 4;
+    this.hasGuessed = false;
+    this.selectedDanishNumbers = [];
+    while (this.selectedDanishNumbers.length < numberOfChoices) {
+      const num = this.getRandomInt(
+        +this.lowestNumber,
+        +this.highestNumber + 1
+      );
+      const danishNumber = this.buildNumberString(num);
+      if (
+        !this.selectedDanishNumbers.some(
+          (d) => d.number === danishNumber.number
+        )
+      ) {
+        this.selectedDanishNumbers.push(danishNumber);
+      }
+    }
+
+    this.correctAnswerIndex = this.getRandomInt(
+      0,
+      this.selectedDanishNumbers.length
+    );
+
+    this.correctAnswer = this.selectedDanishNumbers[this.correctAnswerIndex];
+  }
+
+  buildNumberString(num: number): DanishNumber {
+    const splitNumbers = num.toString().split(/(?=(?:...)*$)/);
     const buildArray: DanishNumber[] = [];
     let outputNumber: DanishNumber = {
       name: '',
@@ -39,7 +70,7 @@ export class NumbersGeneratorService {
       outputNumber.name += d.name + ' ';
       outputNumber.number += d.number;
     });
-    console.log(outputNumber);
+    return outputNumber;
   }
 
   private createGroupNameString(
@@ -47,7 +78,6 @@ export class NumbersGeneratorService {
     iterationCount: number
   ): DanishNumber {
     if (numGroup <= 99) {
-      console.log(numGroup);
       if (iterationCount > 100 && numGroup === 1) {
         const newNum: DanishNumber = {
           number: 1,
@@ -55,7 +85,7 @@ export class NumbersGeneratorService {
         };
         return newNum;
       }
-      return danishNumberDict[numGroup];
+      return { ...danishNumberDict[numGroup] };
     } else if (numGroup === 100) {
       return {
         name: 'et hundrede',
@@ -70,24 +100,23 @@ export class NumbersGeneratorService {
         hundredsName = 'et'; //needed because it is et hundrede and not en hundrede
       }
       const resultNumber: DanishNumber = {
-        name:
-          hundredsName +
-          ' ' +
-          danishNumberDict[100].name +
-          ' ' +
-          danishNumberDict[tens].name,
+        name: hundredsName + ' ' + danishNumberDict[100].name,
         number: numGroup,
       };
+      if (tens > 0) {
+        resultNumber.name += ' ' + danishNumberDict[tens].name;
+      }
       return resultNumber;
     }
   }
 
   /**
    * random int function from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+   * @param min min number you want to get inclusive
    * @param max max number you want to get, exclusive
    * @returns integer between 0 inclusive and max exclusive
    */
-  getRandomInt(max: number) {
-    return Math.floor(Math.random() * max);
+  getRandomInt(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min) + min);
   }
 }
